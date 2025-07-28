@@ -169,7 +169,6 @@ function changeRedditAccount(redditAccountChangeCount: number, error: any) {
     console.log('No more reddit accounts to switch to');
     process.exit(0);
   }
-  redditAccountChangeCount = redditAccountChangeCount + 1;
   // Switch reddit account
   currentCredentialIndex = (currentCredentialIndex + 1) % credentials.length;
   console.log('Switching to reddit account:', currentCredentialIndex);
