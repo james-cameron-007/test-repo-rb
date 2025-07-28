@@ -1,0 +1,11 @@
+.env
+/node_modules
+/dist
+/build
+/logs
+/tmp
+/cache
+/backup
+/temp
+/test
+/test
