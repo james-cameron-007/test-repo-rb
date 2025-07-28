@@ -167,7 +167,7 @@ function changeRedditAccount(redditAccountChangeCount: number, error: any) {
   console.log('Error commenting on post:', error);
   if (redditAccountChangeCount > credentials.length + 1) {
     console.log('No more reddit accounts to switch to');
-    throw new Error('No more reddit accounts to switch to');
+    process.exit(0);
   }
   redditAccountChangeCount = redditAccountChangeCount + 1;
   // Switch reddit account
