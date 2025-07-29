@@ -149,12 +149,28 @@ interface PostProgress {
   commentUrl?: string;
   comment?: string;
 }
-let progress: PostProgress[] = [];
+
+interface Progress {
+  posts: PostProgress[];
+  pagination: Record<string, string>;
+}
+
+interface GetHotOptions {
+  limit?: number;
+  after?: string;
+}
+
+let progress: Progress = { posts: [], pagination: {} };
 let progressMap: Map<string, PostProgress> = new Map();
 try {
   const progressData = await fsPromises.readFile('progress.json', 'utf8');
-  progress = JSON.parse(progressData);
-  progress.forEach((p) => progressMap.set(p.id, p));
+  const loaded = JSON.parse(progressData);
+  if (Array.isArray(loaded)) {
+    progress.posts = loaded;
+  } else {
+    progress = loaded as Progress;
+  }
+  progress.posts.forEach((p) => progressMap.set(p.id, p));
 } catch (error: any) {
   if (error.code !== 'ENOENT') console.error('Error loading progress:', error);
 }
@@ -184,7 +200,13 @@ async function scanAndComment() {
 
   for (const subreddit of subreddits) {
     try {
-      const posts = await reddit.getSubreddit(subreddit).getHot({ limit: 30 });
+      let after: string | undefined = progress.pagination[subreddit] ?? undefined;
+      let options: GetHotOptions = { limit: 5 };
+      if (after) {
+        options.after = after;
+      }
+      console.log('options', options);
+      const posts = await reddit.getSubreddit(subreddit).getHot(options);
       console.log('posts fetched', posts.length);
       for (const post of posts) {
         const postId = post.id;
@@ -195,7 +217,7 @@ async function scanAndComment() {
         }
         if (!postProg) {
           postProg = { id: postId, title: post.title, url: post.url, commented: false };
-          progress.push(postProg);
+          progress.posts.push(postProg);
           progressMap.set(postId, postProg);
           await saveProgress();
         }
@@ -220,6 +242,12 @@ async function scanAndComment() {
           }
         }
       }
+      if (posts.length > 0) {
+        progress.pagination[subreddit] = posts[posts.length - 1].name;
+      } else if (progress.pagination[subreddit]) {
+        delete progress.pagination[subreddit];
+      }
+      await saveProgress();
     } catch (error) {
       changeRedditAccount(redditAccountChangeCount, error);
       redditAccountChangeCount++;
