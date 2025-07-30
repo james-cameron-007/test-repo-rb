@@ -1,8 +1,8 @@
 name: Run
 
 on:
-  schedule:
-    - cron: '*/15 * * * *'
+  repository_dispatch:
+    types: [ifttt_event]
 
 jobs:
   run-bot:
