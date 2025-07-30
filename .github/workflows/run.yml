@@ -1,37 +1,37 @@
-# name: Run
+name: Run
 
-# on:
-#   schedule:
-#     - cron: '*/15 * * * *'
+on:
+  schedule:
+    - cron: '*/15 * * * *'
 
-# jobs:
-#   run-bot:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Checkout repository
-#         uses: actions/checkout@v4
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-#       - name: Set up Node.js
-#         uses: actions/setup-node@v4
-#         with:
-#           node-version: '20'
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
 
-#       - name: Install dependencies
-#         run: npm install
+      - name: Install dependencies
+        run: npm install
 
-#       - name: Run
-#         run: npm run start
-#         env:
-#           CREDENTIAL_KEY: ${{ secrets.CREDENTIAL_KEY }}
-#           REDDIT_USER_AGENT: ${{ secrets.REDDIT_USER_AGENT }}
-#           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-#           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-#           AI_PROVIDER: ${{ secrets.AI_PROVIDER }}
+      - name: Run
+        run: npm run start
+        env:
+          CREDENTIAL_KEY: ${{ secrets.CREDENTIAL_KEY }}
+          REDDIT_USER_AGENT: ${{ secrets.REDDIT_USER_AGENT }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          AI_PROVIDER: ${{ secrets.AI_PROVIDER }}
 
-#       - name: Commit and push changes to progress.json
-#         run: |
-#           git config --global user.name "GitHub Actions"
-#           git config --global user.email "actions@github.com"
-#           git add progress.json
-#           git commit -m "Update progress.json from bot run" || echo "No changes to commit"
-#           git push
+      - name: Commit and push changes to progress.json
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add progress.json
+          git commit -m "Update progress.json from bot run" || echo "No changes to commit"
+          git push

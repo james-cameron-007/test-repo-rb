@@ -38,7 +38,7 @@ function decryptText(encryptedData: string, encryptionKey: string): string {
   return decryptedText.toString();
 }
 
-let credentials: { accessToken: string }[] = [];
+let credentials: { clientId: string; clientSecret: string; refreshToken: string }[] = [];
 const loadCredentials = new Promise<void>((resolve, reject) => {
   const encryptionKey = process.env.CREDENTIAL_KEY;
   if (!encryptionKey) {
@@ -55,8 +55,12 @@ const loadCredentials = new Promise<void>((resolve, reject) => {
       readable.push(null);
       readable
         .pipe(csv())
-        .on('data', (row: { access_token: string }) => {
-          credentials.push({ accessToken: row.access_token });
+        .on('data', (row: { client_id: string; client_secret: string; refresh_token: string }) => {
+          credentials.push({
+            clientId: row.client_id,
+            clientSecret: row.client_secret,
+            refreshToken: row.refresh_token,
+          });
         })
         .on('end', () => {
           console.log('Loaded', credentials.length, 'Reddit credentials');
@@ -75,7 +79,9 @@ if (credentials.length === 0) {
 }
 let reddit = new Snoowrap({
   userAgent,
-  accessToken: credentials[currentCredentialIndex].accessToken,
+  clientId: credentials[currentCredentialIndex].clientId,
+  clientSecret: credentials[currentCredentialIndex].clientSecret,
+  refreshToken: credentials[currentCredentialIndex].refreshToken,
 });
 
 const openai = new OpenAI({
@@ -83,7 +89,7 @@ const openai = new OpenAI({
 });
 const aiProvider = process.env.AI_PROVIDER || 'gemini';
 
-const subreddits = ['FreePornSexVideo']; // Example subreddits
+const subreddits = ['AmateurPorn', 'GOONED', 'porn', 'short_porn', 'Step_Fantasy_GIFs']; // Example subreddits
 const upvoteThreshold = 100; // Threshold for high visibility
 
 function replacePlaceHolders(text: string): string {
@@ -190,7 +196,9 @@ function changeRedditAccount(redditAccountChangeCount: number, error: any) {
   console.log('Switching to reddit account:', currentCredentialIndex);
   reddit = new Snoowrap({
     userAgent,
-    accessToken: credentials[currentCredentialIndex].accessToken,
+    clientId: credentials[currentCredentialIndex].clientId,
+    clientSecret: credentials[currentCredentialIndex].clientSecret,
+    refreshToken: credentials[currentCredentialIndex].refreshToken,
   });
 }
 

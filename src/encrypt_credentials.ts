@@ -23,7 +23,7 @@ async function encryptFile() {
     process.exit(1);
   }
   try {
-    const plainContent = await fs.readFile('reddit_credentials.csv', 'utf8');
+    const plainContent = await fs.readFile('reddit_credentials_plain.csv', 'utf8');
     const encryptedContent = encryptText(plainContent, encryptionKey);
     await fs.writeFile('reddit_credentials.csv', encryptedContent);
     console.log('File encrypted successfully.');
