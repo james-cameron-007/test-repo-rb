@@ -7,9 +7,11 @@ test('simulate user interaction', async ({ page }) => {
   const randomWait = () => Math.floor(Math.random() * 30) * 1000;
 
   async function scenario1() {
+    console.log('Running scenario 1');
     await page.waitForTimeout(randomWait());
     if (Math.random() < 0.2) {
       try {
+        console.log('Clicking next-btn');
         await page.locator('[data-test-id="next-btn"]').click();
       } catch (e) {
         console.error('Failed to click next-btn:', e);
@@ -19,9 +21,11 @@ test('simulate user interaction', async ({ page }) => {
   }
 
   async function scenario2() {
+    console.log('Running scenario 2');
     await page.waitForTimeout(randomWait());
     if (Math.random() < 0.3) {
       try {
+        console.log('Clicking next-btn');
         await page.locator('[data-test-id="next-btn"]').click();
       } catch (e) {
         console.error('Failed to click next-btn:', e);
@@ -32,6 +36,7 @@ test('simulate user interaction', async ({ page }) => {
       const ads = ['vertical-ad-1', 'vertical-ad-2', 'vertical-ad-3', 'vertical-ad-4'];
       const randomAd = ads[Math.floor(Math.random() * ads.length)];
       try {
+        console.log(`Clicking vertical-ad: ${randomAd}`);
         await page.locator(`[data-test-id="${randomAd}"]`).click();
       } catch (e) {
         console.error(`Failed to click ${randomAd}:`, e);
@@ -41,9 +46,11 @@ test('simulate user interaction', async ({ page }) => {
   }
 
   async function scenario3() {
+    console.log('Running scenario 3');
     await page.waitForTimeout(randomWait());
     if (Math.random() < 0.3) {
       try {
+        console.log('Clicking next-btn');
         await page.locator('[data-test-id="next-btn"]').click();
       } catch (e) {
         console.error('Failed to click next-btn:', e);
@@ -54,6 +61,7 @@ test('simulate user interaction', async ({ page }) => {
     const videos = ['video-card-2', 'video-card-6', 'video-card-8', 'video-card-10'];
     const randomVideo = videos[Math.floor(Math.random() * videos.length)];
     try {
+      console.log(`Clicking video-card: ${randomVideo}`);
       await page.locator(`[data-test-id="${randomVideo}"]`).first().click();
     } catch (e) {
       console.error(`Failed to click ${randomVideo}:`, e);
@@ -66,6 +74,7 @@ test('simulate user interaction', async ({ page }) => {
       const videoAds = ['video-ad-1', 'video-ad-2', 'video-ad-3'];
       const randomVideoAd = videoAds[Math.floor(Math.random() * videoAds.length)];
       try {
+        console.log(`Clicking video-ad: ${randomVideoAd}`);
         await page.locator(`[data-test-id="${randomVideoAd}"]`).click();
       } catch (e) {
         console.error(`Failed to click ${randomVideoAd}:`, e);
@@ -76,6 +85,7 @@ test('simulate user interaction', async ({ page }) => {
 
   const scenarios = [scenario1, scenario2, scenario3];
   const randomIndex = Math.floor(Math.random() * scenarios.length);
+  console.log('Running scenario:', randomIndex);
   await scenarios[randomIndex]();
 });
 
