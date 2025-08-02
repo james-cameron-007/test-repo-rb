@@ -8,7 +8,7 @@
     "start": "npm run build && node dist/index.js",
     "format": "prettier --write .",
     "encrypt": "npm run build && node dist/encrypt_credentials.js",
-    "playwright": "node --loader ts-node/esm src/playwright-script.ts"
+    "playwright": "playwright test"
   },
   "keywords": [],
   "author": "",
