@@ -7,15 +7,18 @@
     "build": "tsc",
     "start": "npm run build && node dist/index.js",
     "format": "prettier --write .",
-    "encrypt": "npm run build && node dist/encrypt_credentials.js"
+    "encrypt": "npm run build && node dist/encrypt_credentials.js",
+    "playwright": "node --loader ts-node/esm src/playwright-script.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "module",
   "devDependencies": {
+    "@playwright/test": "^1.54.2",
     "@types/node": "^24.1.0",
     "@types/snoowrap": "^1.19.0",
+    "playwright": "^1.54.2",
     "prettier": "^3.6.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
