@@ -13,3 +13,4 @@ reddit_credentials_plain.csv
 /test-results
 /playwright-report
 /TASKS
+.DS_Store
