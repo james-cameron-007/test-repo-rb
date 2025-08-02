@@ -1,6 +1,6 @@
 import { test } from '@playwright/test';
 
-test('simulate user interaction', async ({ page }) => {
+test('simulate user interaction', async ({ page }, testInfo) => {
   const baseUrl = 'https://freehqpornxxx.com/';
   await page.goto(baseUrl);
 
@@ -87,21 +87,65 @@ test('simulate user interaction', async ({ page }) => {
   const randomIndex = Math.floor(Math.random() * scenarios.length);
   console.log('Running scenario:', randomIndex);
   await scenarios[randomIndex]();
+
+  const screenshot = await page.screenshot({
+    path: 'playwright-report/screenshot.png',
+    fullPage: true,
+  });
+  testInfo.attach('screenshot', {
+    body: screenshot,
+    contentType: 'image/png',
+  });
 });
 
-test('capture browser detection screenshots', async ({ page }) => {
+test('capture browser detection screenshots', async ({ page }, testInfo) => {
   await page.goto('https://www.whatismybrowser.com/');
-  await page.screenshot({ path: 'playwright-report/browser-home.png', fullPage: true });
+  const browserHome = await page.screenshot({
+    path: 'playwright-report/browser-home.png',
+    fullPage: true,
+  });
+  testInfo.attach('browserHome', {
+    body: browserHome,
+    contentType: 'image/png',
+  });
 
   await page.goto('https://www.whatismybrowser.com/detect/how-big-is-my-computer-screen/');
-  await page.screenshot({ path: 'playwright-report/screen-size.png', fullPage: true });
+  const screenSize = await page.screenshot({
+    path: 'playwright-report/screen-size.png',
+    fullPage: true,
+  });
+  testInfo.attach('screenSize', {
+    body: screenSize,
+    contentType: 'image/png',
+  });
 
   await page.goto('https://www.whatismybrowser.com/detect/what-is-my-user-agent/');
-  await page.screenshot({ path: 'playwright-report/user-agent.png', fullPage: true });
+  const userAgent = await page.screenshot({
+    path: 'playwright-report/user-agent.png',
+    fullPage: true,
+  });
+  testInfo.attach('userAgent', {
+    body: userAgent,
+    contentType: 'image/png',
+  });
 
   await page.goto('https://www.whatismybrowser.com/detect/client-hints/');
-  await page.screenshot({ path: 'playwright-report/client-hints.png', fullPage: true });
+  const clientHints = await page.screenshot({
+    path: 'playwright-report/client-hints.png',
+    fullPage: true,
+  });
+  testInfo.attach('clientHints', {
+    body: clientHints,
+    contentType: 'image/png',
+  });
 
   await page.goto('https://www.whatismybrowser.com/detect/navigator-platform/');
-  await page.screenshot({ path: 'playwright-report/navigator-platform.png', fullPage: true });
+  const navigatorPlatform = await page.screenshot({
+    path: 'playwright-report/navigator-platform.png',
+    fullPage: true,
+  });
+  testInfo.attach('navigatorPlatform', {
+    body: navigatorPlatform,
+    contentType: 'image/png',
+  });
 });
