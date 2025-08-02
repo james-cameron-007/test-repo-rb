@@ -1,7 +1,7 @@
 import { test } from '@playwright/test';
 
 test('simulate user interaction', async ({ page }) => {
-  const baseUrl = 'http://localhost:8788/';
+  const baseUrl = 'https://freehqpornxxx.com/';
   await page.goto(baseUrl);
 
   const randomWait = () => Math.floor(Math.random() * 30) * 1000;
