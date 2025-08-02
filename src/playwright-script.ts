@@ -91,17 +91,17 @@ test('simulate user interaction', async ({ page }) => {
 
 test('capture browser detection screenshots', async ({ page }) => {
   await page.goto('https://www.whatismybrowser.com/');
-  await page.screenshot({ path: 'browser-home.png', fullPage: true });
+  await page.screenshot({ path: 'playwright-report/browser-home.png', fullPage: true });
 
   await page.goto('https://www.whatismybrowser.com/detect/how-big-is-my-computer-screen/');
-  await page.screenshot({ path: 'screen-size.png', fullPage: true });
+  await page.screenshot({ path: 'playwright-report/screen-size.png', fullPage: true });
 
   await page.goto('https://www.whatismybrowser.com/detect/what-is-my-user-agent/');
-  await page.screenshot({ path: 'user-agent.png', fullPage: true });
+  await page.screenshot({ path: 'playwright-report/user-agent.png', fullPage: true });
 
   await page.goto('https://www.whatismybrowser.com/detect/client-hints/');
-  await page.screenshot({ path: 'client-hints.png', fullPage: true });
+  await page.screenshot({ path: 'playwright-report/client-hints.png', fullPage: true });
 
   await page.goto('https://www.whatismybrowser.com/detect/navigator-platform/');
-  await page.screenshot({ path: 'navigator-platform.png', fullPage: true });
+  await page.screenshot({ path: 'playwright-report/navigator-platform.png', fullPage: true });
 });
